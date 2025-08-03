@@ -27,17 +27,5 @@ class ProductController extends Controller
         ]);
     }
 
-    public function show($id)
-    {
-        $product = $this->dummyProductService->getProductById($id);
-
-        if (!$product) {
-            abort(404, 'Product not found');
-        }
-
-        return Inertia::render('Products/Details', [
-            'product' => $product,
-        ]);
-    }
-
+    
 }

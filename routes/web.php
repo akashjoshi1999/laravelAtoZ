@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\HomeController;
 use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/auth/redirect', function () {
@@ -15,12 +14,15 @@ Route::get('/auth/callback', function () {
 
     // $user->token
 });
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome');
-// })->name('home');
+Route::get('/', function () {
+    return Inertia::render('Welcome');
+})->name('home');
+Route::get('/products/{id}', function ($id) {
+    return Inertia::render('Products/Details', [
+        'productId' => (int) $id,
+    ]);
+})->name('products.show');
 
 // Route::get('dashboard', function () {
 //     return Inertia::render('Dashboard');
