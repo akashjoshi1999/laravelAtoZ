@@ -15,10 +15,11 @@ import { Head, Link } from '@inertiajs/vue3';
       <nav class="flex gap-4">
         <Link
           v-if="$page.props.auth.user"
-          :href="route('dashboard')"
+          method="post"
+          :href="route('logout')"
           class="text-sm font-medium hover:underline"
         >
-          Dashboard
+          Logout
         </Link>
         <template v-else>
           <Link :href="route('login')" class="text-sm font-medium hover:underline">
