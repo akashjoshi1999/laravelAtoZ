@@ -27,5 +27,13 @@ class ProductController extends Controller
         ]);
     }
 
-    
+    public function show($id) 
+    {
+        $user = auth()->check();
+
+        return Inertia::render('Products/Details', [
+            'productId' => (int) $id,
+            'user' => $user,
+        ]);
+    }
 }

@@ -123,5 +123,4 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    'dummy_json_url' => env('DUMMY_JSON_URL', 'https://dummyjson.com'),
 ];

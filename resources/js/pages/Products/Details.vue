@@ -1,17 +1,29 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { Head } from '@inertiajs/vue3'
+import { Head, router } from '@inertiajs/vue3'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import { useProductStore } from '@/store/products';
 
 defineOptions({ layout: DefaultLayout })
 
-const props = defineProps<{ productId: number }>()
+const props = defineProps<{ productId: number, user: any }>()
 
 const productStore = useProductStore()
 
 const handleCheckout = () => {
-  console.log('Add to cart clicked for product:', productStore.product?.title);
+  if (!props.user) {
+    router.visit(route('login'), {
+      preserveState: true,
+      preserveScroll: true,
+    });
+  }
+  router.visit(route('checkout'), {
+    method: 'post',
+    data: { productId: productStore.product?.id },
+    preserveState: true,
+    preserveScroll: true,
+  });
+
 };
 
 onMounted(() => {
