@@ -84,10 +84,48 @@ onMounted(() => {
   productStore.fetchProducts(true)
 
 });
+
+// Simple popup modal state for starting a (dummy) WhatsApp conversation
+const showModal = ref(false);
+const dummyMessage = ref('Hello from LaravelAtoZ! This is a dummy WhatsApp message.');
+
+const openModal = () => (showModal.value = true);
+const closeModal = () => (showModal.value = false);
+
+const sendWhatsApp = () => {
+  const text = dummyMessage.value || '';
+  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  // open WhatsApp web with prefilled message
+  window.open(url, '_blank');
+  closeModal();
+};
 </script>
 
 <template>
   <Head title="Welcome" />
+
+  <!-- Floating chat button to open popup modal -->
+  <button
+    @click="openModal"
+    class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg z-40"
+    aria-label="Start conversation"
+  >
+    Chat
+  </button>
+
+  <!-- Simple modal for composing a dummy WhatsApp message -->
+  <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center">
+    <div class="fixed inset-0 bg-black opacity-50" @click="closeModal"></div>
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 z-60 max-w-md w-full mx-4">
+      <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Start Conversation</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">This is a dummy message that will be sent to WhatsApp web when you press <strong>Send WhatsApp</strong>.</p>
+      <textarea v-model="dummyMessage" rows="4" class="w-full p-2 border rounded mb-4 dark:bg-[#1b1b18] dark:text-white"></textarea>
+      <div class="flex justify-end gap-2">
+        <button @click="closeModal" class="px-4 py-2 border rounded">Close</button>
+        <button @click="sendWhatsApp" class="px-4 py-2 bg-green-500 text-white rounded">Send WhatsApp</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Filters -->
   <div class="w-full max-w-6xl mb-6">
