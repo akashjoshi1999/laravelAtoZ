@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "Laravel A to Z",
+    "name": "akash/laravel-a-to-z",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
     "keywords": [
@@ -27,6 +27,7 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "laravel/boost": "^1.8",
         "laravel/dusk": "^8.3",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
